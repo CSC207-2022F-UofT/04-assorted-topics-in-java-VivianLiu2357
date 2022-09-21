@@ -24,8 +24,10 @@ public class DrivableMapTest {
     public void testHasFasterThan() {
         Horse h = new Horse();
         dm.addDrivable("Name", h);
-        assertFalse(dm.hasFasterThan(2));
         assertTrue(dm.hasFasterThan(1));
+        assertFalse(dm.hasFasterThan(2));
+        h.upgradeSpeed();
+        assertTrue(dm.hasFasterThan(2));
     }
 
     @Test(timeout = 50)
@@ -38,5 +40,11 @@ public class DrivableMapTest {
         List<Tradable> tradables = dm.getTradable();
         assertEquals(1, tradables.size());
         assertEquals(h, tradables.get(0));
+
+        Horse h1 = new Horse();
+        dm.addDrivable("Horse1", h1);
+        List<Tradable> tradables1 = dm.getTradable();
+        assertEquals(2, tradables1.size());
+        assertEquals(h1, tradables1.get(1));
     }
 }
